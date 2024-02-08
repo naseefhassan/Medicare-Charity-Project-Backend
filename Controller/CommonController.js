@@ -1,4 +1,5 @@
 const userDetails =require("../Model/UserSchema")
+const twilio=require("../Utility/Twilio")
 let object={
     signupPost: async(req,res)=>{
         const{username,email,password,confirmPassword}=req.body
@@ -11,7 +12,13 @@ let object={
         }).save()
 
         console.log(req.body);
+    },
+    sentOtp:  async(req,res)=>{
+        const{phoneNumber}=req.body
+        twilio(phoneNumber)        
+        console.log(phoneNumber);
     }
+    
 }
 
 module.exports =object
