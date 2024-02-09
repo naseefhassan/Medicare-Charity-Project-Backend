@@ -3,10 +3,16 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
 
 function sentOtp(phoneNumber) {
-  client.verify.v2
-    .services("VA3340eba94928a737825de97c8b40d169")
+ 
+  try {
+    client.verify.v2
+    .services(process.env.TWILIO_SERVICE_ID)
     .verifications.create({ to: `+91 ${phoneNumber}`, channel: "sms" })
-    .then((verification) => console.log(verification.status));
+    .then((verification) => console.log(verification.status))
+    .catch((error)=> console.log("error ", error))
+  } catch (error) {
+    console.log("Error from twilio", error)
+  }
 }
 
 module.exports = sentOtp
