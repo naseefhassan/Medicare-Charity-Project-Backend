@@ -33,7 +33,6 @@ let object = {
     try {
       const { phoneNumber } = req.body;
       twilio(phoneNumber);
-      console.log(phoneNumber);
       res.status(200).json({ status: true });
     } catch (error) {
       res.status(404).json({ status: false });
@@ -44,7 +43,6 @@ let object = {
     try {
       const { otp } = req.body;
       twilioCheck(otp)
-      console.log(otp, "verify");
       res.status(200).json({ status: true });
     } catch (error) {
       res.status(404).json({ status: false });
@@ -56,7 +54,6 @@ let object = {
       const user=await userDetails.findOne({email})
       
       if(user && user.password == password){
-        console.log(password);
         req.session.token =user._id
         res.status(200).json({message:"login successful"})
       }else{
