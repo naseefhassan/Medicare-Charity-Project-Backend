@@ -7,16 +7,11 @@ const mongoose =require("./Confiq/confiq")
 const cors =require("cors")
 const session = require("express-session")
 
+
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 app.use(cors())
-app.use(
-  session({
-    secret:process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+
 
 const CommonRouter = require("./Router/CommonRouter")
 // const AdminRouter =require("./Router/AdminRouter")
