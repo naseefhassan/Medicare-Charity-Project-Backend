@@ -5,7 +5,6 @@ const bodyParser =require("body-parser")
 require('dotenv').config()
 const mongoose =require("./Confiq/confiq")
 const cors =require("cors")
-const session = require("express-session")
 
 
 app.use(bodyParser.urlencoded({extended:false}))
@@ -17,10 +16,10 @@ const CommonRouter = require("./Router/CommonRouter")
 // const AdminRouter =require("./Router/AdminRouter")
 const userRouter =require("./Router/UserRouter")
 
-app.use("/",CommonRouter)
 // app.use("/admin",AdminRouter)
+app.use("/",CommonRouter) 
 app.use("/user",userRouter)
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`)
 });

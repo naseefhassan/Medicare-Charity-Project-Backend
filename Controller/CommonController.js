@@ -2,27 +2,30 @@ const userDetails = require("../Model/UserSchema");
 const twilio = require("../Utility/Twilio");
 const twilioCheck = require("../Utility/TwiloCheck");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken")
+
 
 let object = {
   signupPost: async (req, res) => {
     try {
       const { username, email, password } = req.body;
+      const payload=req.body
 
       const existingUser = await userDetails.findOne({ email: email });
 
       if (!existingUser) {
-        console.log("swws");
       const saltRounds = 10;
       const hashPassword = await bcrypt.hash(password, saltRounds);
-      console.log(hashPassword);
 
         const newUser = await new userDetails({
           username: username,
           email: email,
           password: hashPassword,
         }).save();
-        console.log(newUser);
-        res.status(201).json({ message: "User created successfully." });
+
+        //gernerating token
+        const token =jwt.sign({payload},process.env.SECRET_KEY,{expiresIn:'1h'})
+        res.status(201).json({ message: "User created successfully." ,token});
       } else {
         res
           .status(201)
@@ -60,7 +63,6 @@ let object = {
         req.body.password,
         check.password
       );
-    console.log(passwordMatch);
       if (passwordMatch) {
         res.status(200).json({ message: "login successful" });
       } else {
