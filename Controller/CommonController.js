@@ -28,7 +28,7 @@ let object = {
         res.status(201).json({ message: "User created successfully." ,token});
       } else {
         res
-          .status(201)
+          .status(400)
           .json({ message: "User already exists with this email." });
       }
     } catch (error) {
