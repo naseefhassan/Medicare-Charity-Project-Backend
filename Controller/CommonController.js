@@ -49,6 +49,7 @@ const object = {
       res.status(404).json({status: false});
     }
   },
+
   LoginPost: async (req, res) => {
     try {
       const {email} = req.body;

@@ -3,7 +3,7 @@ const app = express();
 const port = 5001;
 const bodyParser =require('body-parser');
 require('dotenv').config();
-const mongoose =require('./Confiq/confiq');
+require('./Confiq/confiq');
 const cors =require('cors');
 
 
@@ -13,10 +13,10 @@ app.use(cors());
 
 
 const CommonRouter = require('./Router/CommonRouter');
-// const AdminRouter =require("./Router/AdminRouter")
+const AdminRouter =require('./Router/AdminRouter');
 const userRouter =require('./Router/UserRouter');
 
-// app.use("/admin",AdminRouter)
+app.use('/admin', AdminRouter);
 app.use('/', CommonRouter);
 app.use('/user', userRouter);
 
