@@ -9,6 +9,7 @@ AWS.config.update({
 });
 
 const s3 = new AWS.S3();
+console.log(s3, 's3');
 
 const upload = multer({
   storage: multerS3({
@@ -16,12 +17,14 @@ const upload = multer({
     bucket: process.env.S3_BUCKET_NAME,
     acl: 'public-read',
     metadata: function(req, res, cb) {
-      cb(null, {filedName: filed.filedname});
+      cb(null, {filedName: file.filedname});
     },
     key: function(req, res, cb) {
       cb(null, Date.now().toString()+'-'+file.originalname);
     },
   }),
 });
+console.log(upload, 'upload');
+
 
 module.exports = upload;

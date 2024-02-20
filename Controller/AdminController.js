@@ -7,7 +7,7 @@ const object = {
     try {
       const {username, gender, age, phoneNumber, Qualification, Experience} =
         req.body;
-      upload.single('Image')(req, res, async function(err) {
+      upload.single('Images')(req, res, async function(err) {
         if (err) {
           console.error('upload error', err);
           return res.status(400).json({message: 'Failed to upload images'});
@@ -30,6 +30,26 @@ const object = {
     } catch (error) {
       console.error('Nurse profile error', error);
       res.status(500).json({message: 'internal server error'});
+    }
+  },
+  editnurse: async (req, res) => {
+    const {username, gender, age, phoneNumber, Qualification, Experience} =
+      req.body;
+
+    const nurseId = req.params.id;
+    console.log(nurseIdk);
+
+    try {
+      // Finding the nurse by ID
+      const nurse = await NurseSchema.findById(nurseId);
+
+      console.log(nurse);
+      if (!nurse) {
+        res.status(404).json({message: 'Nurse not found'});
+      }
+    } catch (error) {
+      console.error(err);
+      res.status(500).json({message: 'Internal server error'});
     }
   },
 };
