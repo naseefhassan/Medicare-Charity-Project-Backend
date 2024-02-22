@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable new-cap */
 const userDetails = require('../Model/UserSchema');
 const twilio = require('../Utility/Twilio');
 const twilioCheck = require('../Utility/TwiloCheck');
