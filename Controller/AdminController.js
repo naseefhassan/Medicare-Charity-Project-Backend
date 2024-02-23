@@ -10,29 +10,23 @@ const object = {
       const {username, gender, age, phoneNumber, Qualification, Experience} =
         req.body;
       console.log(req.body);
-      upload.single('Image')(req, res, async function(err) {
-        if (err) {
-          console.error('upload error', err);
-          return res.status(400).json({message: 'Failed to upload images'});
-        }
-        const Image = req.file.location;
-        console.log(Image, 'image');
-        const newNurse = await new NurseSchema({
-          username: username,
-          gender: gender,
-          age: age,
-          phoneNumber: phoneNumber,
-          Qualification: Qualification,
-          Experience: Experience,
-          Image: Image,
-        }).save();
-        res.status(200).json({message: 'Nurse details added'});
-      });
+
+      const newNurse = await new NurseSchema({
+        username: username,
+        gender: gender,
+        age: age,
+        phoneNumber: phoneNumber,
+        Qualification: Qualification,
+        Experience: Experience,
+      }).save();
+
+      res.status(200).json({message: 'Nurse details added'});
     } catch (error) {
       console.error('Nurse profile error', error);
       res.status(500).json({message: 'internal server error'});
     }
   },
+
   editnurse: async (req, res) => {
     const {username, gender, age, phoneNumber, Qualification, Experience} =
       req.body;

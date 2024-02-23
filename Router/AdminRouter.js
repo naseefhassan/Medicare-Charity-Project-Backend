@@ -4,11 +4,11 @@
 const express = require('express');
 const Router = express.Router();
 const {PostNurse, editnurse, mobilityAids} = require('../Controller/AdminController');
+const {upload} = require('../Utility/Multer');
 
-Router.post('/PostNurse', PostNurse);
+Router.post('/PostNurse', upload.single('Image'), PostNurse);
 Router.put('/editnurse', editnurse);
 Router.post('/mobilityAids', mobilityAids);
-
 
 
 module.exports = Router;

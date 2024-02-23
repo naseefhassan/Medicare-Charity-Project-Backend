@@ -8,7 +8,7 @@ const NurseProfileSchema = new mongoose.Schema({
   phoneNumber: {type: Number, required: true},
   Qualification: {type: String, required: true},
   Experience: {type: String, required: true},
-  Image: {type: String, required: true},
+  Image: {type: String},
 });
 
 const Nurse = new mongoose.model('Nurse', NurseProfileSchema);
