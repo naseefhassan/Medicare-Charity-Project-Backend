@@ -5,11 +5,10 @@ const MobilitySchema = require('../Model/MobilityAids');
 const upload = require('../Utility/Multer');
 const object = {
   PostNurse: async (req, res) => {
-    console.log('jl');
     try {
       const {username, gender, age, phoneNumber, Qualification, Experience} =
         req.body;
-      console.log(req.body);
+      const ImgUrl =req.file.location;
 
       const newNurse = await new NurseSchema({
         username: username,
@@ -18,12 +17,22 @@ const object = {
         phoneNumber: phoneNumber,
         Qualification: Qualification,
         Experience: Experience,
+        Image: ImgUrl,
       }).save();
 
       res.status(200).json({message: 'Nurse details added'});
     } catch (error) {
       console.error('Nurse profile error', error);
       res.status(500).json({message: 'internal server error'});
+    }
+  },
+  showNurse: async (req, res)=>{
+    try {
+      const NurseData =await NurseSchema.find();
+      console.log(NurseData, 'data');
+      res.status(200).json({message: 'nurse data found', NurseData});
+    } catch (error) {
+      res.status(200).json({message: 'nurse data not found'});
     }
   },
 
