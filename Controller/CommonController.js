@@ -26,8 +26,9 @@ const object = {
         }).save();
 
         // gernerating token
+        const expires = 3*24*60*60;
         const token =jwt.sign({payload},
-            process.env.SECRET_KEY, {expiresIn: '1h'},
+            process.env.SECRET_KEY, {expiresIn: expires},
         );
         res.status(201).json({message: 'User created successfully.', token});
       } else {
