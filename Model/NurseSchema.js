@@ -9,6 +9,8 @@ const NurseProfileSchema = new mongoose.Schema({
   Qualification: {type: String, required: true},
   Experience: {type: String, required: true},
   Image: {type: String},
+  delStatus: {type: Boolean, default: false, required: true},
+
 });
 
 const Nurse = new mongoose.model('Nurse', NurseProfileSchema);

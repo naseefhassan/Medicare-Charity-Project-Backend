@@ -45,26 +45,38 @@ const object = {
       console.log('l', nurseId, 'iddddddd');
 
       const nurse = await NurseSchema.findById(nurseId);
-      console.log(nurse, 'nurseeeeeeee');
-
-
-      // nurse.username = username;
-      // nurse.gender = gender;
-      // nurse.age = age;
-      // nurse.phoneNumber = phoneNumber;
-      // nurse.Qualification = Qualification;
-      // nurse.Experience = Experience;
-      // await nurse.save();
-
+      console.log(nurse, ',,,,,,');
       if (!nurse) {
         res.status(404).json({message: 'Nurse not found'});
       }
+      nurse.username = username;
+      nurse.gender = gender;
+      nurse.age = age;
+      nurse.phoneNumber = phoneNumber;
+      nurse.Qualification = Qualification;
+      nurse.Experience = Experience;
+
+      await nurse.save();
+      res
+          .status(200)
+          .json({message: 'Nurse details updated successfully', nurse});
     } catch (error) {
       console.error(error);
       res.status(500).json({message: 'Internal server error'});
     }
   },
+  delNurse: async (req, res) => {
+    try {
+      const delNurseId = req.params.delId;
+      const delNurse = await NurseSchema.findByIdAndUpdate(delNurseId, {delStatus: true}, {new: true});
 
+      console.log(delNurse, '............del');
+      res.status(200).json({message: 'Nurse data deleted', delNurseId});
+    } catch (error) {
+      console.error(error, 'deleteing failed');
+      res.status(404).json({message: 'deleting failed'});
+    }
+  },
   mobilityAids: async (req, res) => {
     const {Item, Brand, Color, Material, Rate, Description, Image} = req.body;
     console.log(req.body);
@@ -87,3 +99,13 @@ const object = {
 };
 
 module.exports = object;
+// const nurse = await NurseSchema.updateOne(nurseId);
+// console.log(nurse, 'nurseeeeeeee');
+
+// nurse.username = username;
+// nurse.gender = gender;
+// nurse.age = age;
+// nurse.phoneNumber = phoneNumber;
+// nurse.Qualification = Qualification;
+// nurse.Experience = Experience;
+// await nurse.save();
