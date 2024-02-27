@@ -40,21 +40,23 @@ const object = {
       const {username, gender, age, phoneNumber, Qualification, Experience} =
         req.body;
       console.log(req.body, 'reqqqqqqq');
+      
 
       const nurseId = req.params.nurseId;
       console.log('l', nurseId, 'iddddddd');
 
-      const nurse = await NurseSchema.findById(nurseId);
+      const nurse = await NurseSchema.findByIdAndUpdate(nurseId, {
+        username: username,
+        gender: gender,
+        age: age,
+        phoneNumber: phoneNumber,
+        Qualification: Qualification,
+        Experience: Experience,
+      }, {new: true});
       console.log(nurse, ',,,,,,');
       if (!nurse) {
         res.status(404).json({message: 'Nurse not found'});
       }
-      nurse.username = username;
-      nurse.gender = gender;
-      nurse.age = age;
-      nurse.phoneNumber = phoneNumber;
-      nurse.Qualification = Qualification;
-      nurse.Experience = Experience;
 
       await nurse.save();
       res
@@ -70,7 +72,6 @@ const object = {
       const delNurseId = req.params.delId;
       const delNurse = await NurseSchema.findByIdAndUpdate(delNurseId, {delStatus: true}, {new: true});
 
-      console.log(delNurse, '............del');
       res.status(200).json({message: 'Nurse data deleted', delNurseId});
     } catch (error) {
       console.error(error, 'deleteing failed');

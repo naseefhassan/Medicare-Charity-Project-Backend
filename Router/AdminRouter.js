@@ -15,8 +15,8 @@ const verifyToken = require('../MiddleWare/JWT_Token');
 
 Router.post('/PostNurse', verifyToken, upload.single('Image'), PostNurse);
 Router.get('/showNurse', showNurse);
-Router.put('/editnurse/:nurseId', verifyToken, editnurse);
-Router.post('/delNurse/:delId', delNurse);
+Router.put('/editnurse/:nurseId', editnurse);
+Router.post('/delNurse/:delId', verifyToken, delNurse);
 Router.post('/mobilityAids', mobilityAids);
 
 module.exports = Router;
