@@ -39,25 +39,24 @@ const object = {
     try {
       const {username, gender, age, phoneNumber, Qualification, Experience} =
         req.body;
-      console.log(req.body, 'reqqqqqqq');
-      
 
       const nurseId = req.params.nurseId;
-      console.log('l', nurseId, 'iddddddd');
 
-      const nurse = await NurseSchema.findByIdAndUpdate(nurseId, {
-        username: username,
-        gender: gender,
-        age: age,
-        phoneNumber: phoneNumber,
-        Qualification: Qualification,
-        Experience: Experience,
-      }, {new: true});
-      console.log(nurse, ',,,,,,');
+      const nurse = await NurseSchema.findByIdAndUpdate(
+          nurseId,
+          {
+            username: username,
+            gender: gender,
+            age: age,
+            phoneNumber: phoneNumber,
+            Qualification: Qualification,
+            Experience: Experience,
+          },
+          {new: true},
+      );
       if (!nurse) {
         res.status(404).json({message: 'Nurse not found'});
       }
-
       await nurse.save();
       res
           .status(200)
@@ -70,7 +69,11 @@ const object = {
   delNurse: async (req, res) => {
     try {
       const delNurseId = req.params.delId;
-      const delNurse = await NurseSchema.findByIdAndUpdate(delNurseId, {delStatus: true}, {new: true});
+      const delNurse = await NurseSchema.findByIdAndUpdate(
+          delNurseId,
+          {delStatus: true},
+          {new: true},
+      );
 
       res.status(200).json({message: 'Nurse data deleted', delNurseId});
     } catch (error) {
@@ -79,34 +82,48 @@ const object = {
     }
   },
   mobilityAids: async (req, res) => {
-    const {Item, Brand, Color, Material, Rate, Description, Image} = req.body;
-    console.log(req.body);
     try {
-      const newMobilityAids = await new MobilitySchema({
-        Item: Item,
-        Brand: Brand,
-        Color: Color,
-        Material: Material,
-        Rate: Rate,
-        Description: Description,
-        Image: Image,
-      }).save();
+      const {item, brand, color, material, rate, description} = req.body;
+      const ImgUrl = req.file.location;
+      console.log(req.body);
+      console.log(ImgUrl), 'KJHG';
 
+      const newMobilityAids = await new MobilitySchema({
+        item: item,
+        brand: brand,
+        color: color,
+        material: material,
+        rate: rate,
+        description: description,
+        image: ImgUrl,
+      }).save();
       res.status(200).json({message: 'data added successfully'});
     } catch (error) {
       res.status(400).json({message: 'data entry failed'});
     }
   },
+  showMobilityAids: async (req, res) => {
+    try {
+      const MobilityAidsData = await MobilitySchema.find();
+      res
+          .status(200)
+          .json({
+            message: 'data finded from mobility aids schema',
+            MobilityAidsData,
+          });
+    } catch {
+      res.status(400).json({message: 'mobility aids feching failed'});
+    }
+  },
+  toolsDelId: async (req, res)=>{
+    const toolsDelId= req.params.toolsDelId;
+    try {
+      const deletetools = await MobilitySchema.findByIdAndDelete(toolsDelId);
+      res.status(200).json({message: 'mobility aids deleted successfully'});
+    } catch {
+      res.status(400).json({message: 'mobility aids deleting failed failed'});
+    }
+  },
 };
 
 module.exports = object;
-// const nurse = await NurseSchema.updateOne(nurseId);
-// console.log(nurse, 'nurseeeeeeee');
-
-// nurse.username = username;
-// nurse.gender = gender;
-// nurse.age = age;
-// nurse.phoneNumber = phoneNumber;
-// nurse.Qualification = Qualification;
-// nurse.Experience = Experience;
-// await nurse.save();
