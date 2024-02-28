@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 const NurseSchema = require('../Model/NurseSchema');
@@ -115,13 +116,32 @@ const object = {
       res.status(400).json({message: 'mobility aids feching failed'});
     }
   },
-  toolsDelId: async (req, res)=>{
-    const toolsDelId= req.params.toolsDelId;
+  toolsDelId: async (req, res) => {
+    const toolsDelId = req.params.toolsDelId;
     try {
       const deletetools = await MobilitySchema.findByIdAndDelete(toolsDelId);
       res.status(200).json({message: 'mobility aids deleted successfully'});
     } catch {
-      res.status(400).json({message: 'mobility aids deleting failed failed'});
+      res.status(400).json({message: 'mobility aids deleting failed'});
+    }
+  },
+  editMobilityAids: async (req, res) => {
+    try {
+      const {item, brand, color, material, rate, description} = req.body;
+      const toolsId = req.params.toolsId;
+
+      const MobilityTools = await MobilitySchema.findByIdAndUpdate(toolsId, {
+        item: item,
+        brand: brand,
+        color: color,
+        material: material,
+        rate: rate,
+        description: description,
+      }, {new: true});
+
+      res.status(200).json({message: 'mobility aids ediiting success', MobilityTools});
+    } catch (error) {
+      res.status(400).json({message: 'mobility aids editing failed'});
     }
   },
 };

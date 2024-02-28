@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 const express=require('express');
 const Router = express.Router();
 const {profileupdate, profile}=require('../Controller/UserController');
