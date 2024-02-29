@@ -1,5 +1,7 @@
+/* eslint-disable max-len */
 const Userprofile = require('../Model/ProfileSchema');
 const userDetails = require('../Model/UserSchema');
+const VolunteerSchema = require('../Model/VolunteerSchema');
 
 const object = {
   profile: async (req, res) => {
@@ -51,6 +53,29 @@ const object = {
     } catch (error) {
       console.error('profile error', error);
       res.status(404).json({message: 'user not found'});
+    }
+  },
+  volunteerProfile: async (req, res) => {
+    try {
+      const {username, email, phoneNumber, gender, age, address, district, city} = req.body;
+      console.log(req.body);
+
+      const volunteerData = await new VolunteerSchema({
+        username: username,
+        email: email,
+        phoneNumber: phoneNumber,
+        gender: gender,
+        age: age,
+        address: address,
+        district: district,
+        city: city,
+      }).save();
+
+      console.log('here');
+      console.log(volunteerData);
+      res.status(200).json({message: 'volunteer profile added successfully'});
+    } catch (error) {
+      res.status(400).json({message: 'volunteer profile adding failed'});
     }
   },
 };
