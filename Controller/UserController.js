@@ -79,8 +79,16 @@ const object = {
       }).save();
       res.status(200).json({message: 'volunteer profile added successfully'});
     } catch (error) {
-      console.error(error,'msg');
+      console.error(error, 'msg');
       res.status(400).json({message: 'volunteer profile adding failed'});
+    }
+  },
+  volunteerdata: async (req, res) => {
+    try {
+      const volunteer = await VolunteerSchema.find();
+      res.status(200).json({message: 'volunteer data fetching success', volunteer});
+    } catch (error) {
+      res.status(400).json({message: 'volunteer data fetching failed'});
     }
   },
 };
