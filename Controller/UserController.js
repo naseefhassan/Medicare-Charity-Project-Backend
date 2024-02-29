@@ -2,6 +2,8 @@
 const Userprofile = require('../Model/ProfileSchema');
 const userDetails = require('../Model/UserSchema');
 const VolunteerSchema = require('../Model/VolunteerSchema');
+const upload = require('../Utility/Multer');
+
 
 const object = {
   profile: async (req, res) => {
@@ -57,8 +59,12 @@ const object = {
   },
   volunteerProfile: async (req, res) => {
     try {
+      console.log('try');
       const {username, email, phoneNumber, gender, age, address, district, city} = req.body;
+      const ImgUrl = req.file?.location;
       console.log(req.body);
+      console.log(ImgUrl);
+
 
       const volunteerData = await new VolunteerSchema({
         username: username,
@@ -69,12 +75,11 @@ const object = {
         address: address,
         district: district,
         city: city,
+        vimage: ImgUrl,
       }).save();
-
-      console.log('here');
-      console.log(volunteerData);
       res.status(200).json({message: 'volunteer profile added successfully'});
     } catch (error) {
+      console.error(error,'msg');
       res.status(400).json({message: 'volunteer profile adding failed'});
     }
   },

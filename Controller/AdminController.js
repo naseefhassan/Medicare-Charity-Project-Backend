@@ -86,8 +86,6 @@ const object = {
     try {
       const {item, brand, color, material, rate, description} = req.body;
       const ImgUrl = req.file.location;
-      console.log(req.body);
-      console.log(ImgUrl), 'KJHG';
 
       const newMobilityAids = await new MobilitySchema({
         item: item,

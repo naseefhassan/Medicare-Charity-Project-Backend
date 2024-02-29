@@ -10,7 +10,8 @@ const VolunteerSchema= new mongoose.Schema({
   address: {type: String, required: true},
   district: {type: String, required: true},
   city: {type: String, required: true},
-})
+  vimage: {type: String, required: true},
+});
 
 const VolunteerCollection = new mongoose.model('volunteer', VolunteerSchema);
 
