@@ -2,7 +2,8 @@
 const Userprofile = require('../Model/ProfileSchema');
 const userDetails = require('../Model/UserSchema');
 const VolunteerSchema = require('../Model/VolunteerSchema');
-const upload = require('../Utility/Multer');
+const NurseSchema = require('../Model/NurseSchema');
+const MobilitySchema = require('../Model/MobilityAids');
 
 
 const object = {
@@ -66,6 +67,7 @@ const object = {
       console.log(ImgUrl);
 
 
+      // eslint-disable-next-line no-unused-vars
       const volunteerData = await new VolunteerSchema({
         username: username,
         email: email,
@@ -91,6 +93,21 @@ const object = {
       res.status(400).json({message: 'volunteer data fetching failed'});
     }
   },
+  nursedata: async (req, res) => {
+    try {
+      const Nurse = await NurseSchema.find();
+      res.status(200).json({message: 'nurse data fetching success', Nurse});
+    } catch (error) {
+      res.status(400).json({message: 'nurse data fetching failed'});
+    }
+  },
+  showMobility: async (req, res)=>{
+    try {
+      const Mobility = await MobilitySchema.find();
+      res.status(200).json({message: 'mobility data fetching success', Mobility});
+    } catch (error) {
+      res.status(400).json({message: 'mobility data fetching failed'});
+    }
+  },
 };
-
 module.exports = object;

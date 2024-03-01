@@ -15,6 +15,7 @@ const {
   showMobilityAids,
   toolsDelId,
   editMobilityAids,
+  userProfile,
 } = require('../Controller/AdminController');
 
 
@@ -26,6 +27,7 @@ Router.post('/mobilityAids', verifyToken, upload.single('image'), mobilityAids);
 Router.get('/showMobilityAids', verifyToken, showMobilityAids);
 Router.delete('/mobilityDelete/:toolsDelId', verifyToken, toolsDelId);
 Router.put('/editMobilityAids/:toolsId', verifyToken, editMobilityAids);
+Router.get('/userProfile', verifyToken, userProfile );
 
 
 module.exports = Router;

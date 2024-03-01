@@ -3,7 +3,8 @@
 /* eslint-disable max-len */
 const NurseSchema = require('../Model/NurseSchema');
 const MobilitySchema = require('../Model/MobilityAids');
-const upload = require('../Utility/Multer');
+const UserSchema = require('../Model/UserSchema');
+
 const object = {
   PostNurse: async (req, res) => {
     try {
@@ -140,6 +141,14 @@ const object = {
       res.status(200).json({message: 'mobility aids ediiting success', MobilityTools});
     } catch (error) {
       res.status(400).json({message: 'mobility aids editing failed'});
+    }
+  },
+  userProfile: async (req, res)=>{
+    try {
+      const Userprofile =await UserSchema.find();
+      res.status(200).json({message: 'user fecthing success', Userprofile});
+    } catch (error) {
+      res.status(400).json({message: 'user fetching failed'});
     }
   },
 };
