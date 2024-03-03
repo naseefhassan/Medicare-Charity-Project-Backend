@@ -37,7 +37,7 @@ const object = {
             .json({message: 'User already exists with this email.'});
       }
     } catch (error) {
-      res.status(400).json({message: 'signup  error'});
+      res.status(500).json({message: 'signup  error'});
     }
   },
 

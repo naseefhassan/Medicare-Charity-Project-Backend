@@ -4,6 +4,7 @@ const userDetails = require('../Model/UserSchema');
 const VolunteerSchema = require('../Model/VolunteerSchema');
 const NurseSchema = require('../Model/NurseSchema');
 const MobilitySchema = require('../Model/MobilityAids');
+const VehicleSchema = require('../Model/AmbulanceSchema');
 
 
 const object = {
@@ -101,7 +102,7 @@ const object = {
       res.status(400).json({message: 'nurse data fetching failed'});
     }
   },
-  showMobility: async (req, res)=>{
+  showMobility: async (req, res) => {
     try {
       const Mobility = await MobilitySchema.find();
       res.status(200).json({message: 'mobility data fetching success', Mobility});
@@ -109,5 +110,34 @@ const object = {
       res.status(400).json({message: 'mobility data fetching failed'});
     }
   },
+  addVehicle: async (req, res) => {
+    try {
+      const {ownerName, email, phoneNumber, vehicleNumber, vehicleGrade, vehicleModel} = req.body;
+      const Imgurl = req.file.location;
+
+      const existingVehicle = await VehicleSchema.findOne({vehicleNumber});
+
+      if (!existingVehicle) {
+        const newVehicle = new VehicleSchema({
+          ownerName,
+          email,
+          phoneNumber,
+          vehicleNumber,
+          vehicleGrade,
+          vehicleModel,
+          image: Imgurl,
+        });
+
+        await newVehicle.save();
+
+        res.status(200).json({message: 'Ambulance added successfully'});
+      } else {
+        res.status(400).json({message: 'This vehicle is already exists'});
+      }
+    } catch (error) {
+      res.status(500).json({message: 'Internal server error'});
+    }
+  },
+
 };
 module.exports = object;
