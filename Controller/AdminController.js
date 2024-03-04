@@ -4,6 +4,7 @@
 const NurseSchema = require('../Model/NurseSchema');
 const MobilitySchema = require('../Model/MobilityAids');
 const UserSchema = require('../Model/UserSchema');
+const AmbulanceSchema = require('../Model/AmbulanceSchema');
 
 const object = {
   PostNurse: async (req, res) => {
@@ -149,6 +150,14 @@ const object = {
       res.status(200).json({message: 'user fecthing success', Userprofile});
     } catch (error) {
       res.status(400).json({message: 'user fetching failed'});
+    }
+  },
+  showVehicle: async (req, res )=>{
+    try {
+      const Vehicle = await AmbulanceSchema.find();
+      res.status(200).json({message: 'Ambulance fecthing success', Vehicle});
+    } catch (error) {
+      res.status(400).json({message: 'Ambulance fetching failed'});
     }
   },
 };
