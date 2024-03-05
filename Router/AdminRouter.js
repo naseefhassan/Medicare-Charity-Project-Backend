@@ -29,7 +29,7 @@ Router.get('/showMobilityAids', verifyToken, showMobilityAids);
 Router.delete('/mobilityDelete/:toolsDelId', verifyToken, toolsDelId);
 Router.put('/editMobilityAids/:toolsId', verifyToken, editMobilityAids);
 Router.get('/userProfile', verifyToken, userProfile );
-Router.get('/showVehicle',verifyToken, showVehicle)
+Router.get('/showVehicle', verifyToken, showVehicle);
 
 
 module.exports = Router;

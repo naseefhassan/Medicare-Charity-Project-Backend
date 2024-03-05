@@ -59,6 +59,14 @@ const object = {
       res.status(404).json({message: 'user not found'});
     }
   },
+  getprofile: async (req, res)=>{
+    try {
+      const profileData = await userDetails.findOne({email});
+      res.status(200).json({message: 'profile fetching success', profileData});
+    } catch (error) {
+      console.error(error);
+    }
+  },
   volunteerProfile: async (req, res) => {
     try {
       console.log('try');
@@ -136,6 +144,14 @@ const object = {
       }
     } catch (error) {
       res.status(500).json({message: 'Internal server error'});
+    }
+  },
+  showambulance: async (req, res)=>{
+    try {
+      const ambulance = await VehicleSchema.find();
+      res.status(200).json({message: 'ambulance fetching failed', ambulance});
+    } catch (error) {
+      console.log(error);
     }
   },
 
