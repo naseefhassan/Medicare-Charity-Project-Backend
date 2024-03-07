@@ -2,16 +2,17 @@
 /* eslint-disable new-cap */
 const express = require('express');
 const Router = express.Router();
-const {upload} = require('../Utility/Multer');
+const { upload } = require('../Utility/Multer');
 const verifyToken = require('../MiddleWare/JWT_Token');
 
 
-const {profileupdate, profile, volunteerProfile, volunteerdata, nursedata, showMobility, addVehicle, showambulance, getprofile } =
+const { profileupdate, profile, volunteerProfile, volunteerdata, nursedata, showMobility, addVehicle, showambulance, getprofile } =
     require('../Controller/UserController');
 
+Router.get('/profile/:userId', verifyToken, profile);   
 Router.post('/profileupdate', verifyToken, profileupdate);
-Router.get('/profile', verifyToken, profile);
-Router.get('/getprofile',verifyToken, getprofile)
+Router.post('/getprofile', verifyToken, getprofile);
+
 Router.post('/volunteerProfile', verifyToken, upload.single('image'), volunteerProfile);
 Router.get('/volunteerdata', verifyToken, volunteerdata);
 Router.get('/nursedata', verifyToken, nursedata);
