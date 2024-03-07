@@ -8,6 +8,6 @@ const {signupPost, verifyOtp, LoginPost} = require('../Controller/CommonControll
 
 Router.post('/signupPost', signupPost);
 Router.post('/verifyOtp', verifyOtp);
-Router.post('/LoginPost', verifyToken, LoginPost);
+Router.post('/LoginPost', LoginPost);
 
 module.exports=Router;

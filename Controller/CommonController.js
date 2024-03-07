@@ -57,13 +57,19 @@ const object = {
     try {
       const {email} = req.body;
       const check = await userDetails.findOne({email});
+      const payload = req.body;
+
+      const expires = 3*24*60*60;
+      const token =jwt.sign({payload},
+          process.env.SECRET_KEY, {expiresIn: expires},
+      );
 
       const passwordMatch = await bcrypt.compare(
           req.body.password,
           check.password,
       );
       if (passwordMatch) {
-        res.status(200).json({message: 'login successful', role: check.role});
+        res.status(200).json({message: 'login successful', role: check.role, token});
       } else {
         res.status(401).json({message: 'login invaild '});
       }
