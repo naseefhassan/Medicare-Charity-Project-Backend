@@ -47,13 +47,17 @@ const object = {
   },
   getprofile: async (req, res) => {
     try {
-      const {token} = req.body;
+      let token = req.headers.authorization;
+      if (!token) {
+        return res.status(401).json({message: 'Unauthorized'});
+      }
+      token = token.split(' ')[1];
       const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
       const profileData = await userDetails.findOne({email: decodedToken.payload.email});
       res.status(200).json({message: 'profile fetching success', profileData});
     } catch (error) {
       console.error(error, 'fecthing error');
-      res.status(400).json({message: 'profile  fetching failed'});
+      res.status(400).json({message: 'profile fetching failed'});
     }
   },
   volunteerProfile: async (req, res) => {
