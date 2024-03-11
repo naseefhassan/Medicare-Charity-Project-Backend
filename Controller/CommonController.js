@@ -7,6 +7,7 @@ const twilioCheck = require('../Utility/TwiloCheck');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const {sendMail} = require('../Utility/Nodemailer');
 
 
 const object = {
@@ -89,30 +90,16 @@ const object = {
       }
       const expires = 3 * 24 * 60 * 60;
       const token = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: expires});
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.USER_EMAIL,
-          pass: process.env.EMAIL_PASSWORD,
-        },
-      });
 
-      const mailOptions = {
-        from: process.env.USER_EMAIL,
-        to: process.env.TO_EMAIL,
-        subject: 'Reset Your password',
-        text: `http://localhost:5173/resetpassword/${user._id}/${token}`,
-      };
+      const resetLink = `http://localhost:5173/resetpassword/${user._id}/${token}`;
 
-      transporter.sendMail(mailOptions, function(error) {
-        console.log('here');
-        if (error) {
-          console.log(error);
-          return res.status(500).json({message: 'Failed to send email'});
-        } else {
-          res.status(200).json({message: 'Success'});
-        }
-      });
+      const {success, error} = await sendMail(email, resetLink);
+
+      if (success) {
+        res.status(200).json({message: 'Success'});
+      } else {
+        res.status(500).json({message: error});
+      }
     } catch (error) {
       console.error('Forgot password error', error);
       res.status(500).json({message: 'Forgot password error'});

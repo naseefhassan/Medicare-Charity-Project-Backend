@@ -9,7 +9,7 @@ const {signupPost, verifyOtp, LoginPost, forgotPassword, resetPassword} = requir
 Router.post('/signupPost', signupPost);
 Router.post('/verifyOtp', verifyOtp);
 Router.post('/LoginPost', LoginPost);
-Router.post('/forgotPassword', forgotPassword);
-Router.post('/resetPassword/:id/:token', resetPassword);
+Router.post('/forgotPassword', verifyToken, forgotPassword);
+Router.post('/resetPassword/:id/:token', verifyToken, resetPassword);
 
 module.exports=Router;
