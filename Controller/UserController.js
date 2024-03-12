@@ -143,6 +143,33 @@ const object = {
       console.error(error);
     }
   },
-
+  userInfo: async (req, res) => {
+    try {
+      let token = req.headers.authorization;
+      if (!token) {
+        return res.status(401).json({message: 'Unauthorized'});
+      }
+      token = token.split(' ')[1];
+      const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+      const userInfo = await userDetails.findOne({email: decodedToken.payload.email});
+      res.status(200).json({message: 'profile fetching success', userInfo});
+    } catch {
+      res.status(400).json({message: 'failed'});
+    }
+  },
+  getUser: async (req, res)=>{
+    try {
+      let token = req.headers.authorization;
+      if (!token) {
+        return res.status(401).json({message: 'Unauthorized'});
+      }
+      token = token.split(' ')[1];
+      const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+      const userInfo = await userDetails.findOne({email: decodedToken.payload.email});
+      res.status(200).json({message: 'getUser success', userInfo});
+    } catch {
+      res.status(400).json({message: 'failed'});
+    }
+  },
 };
 module.exports = object;

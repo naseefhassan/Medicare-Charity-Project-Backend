@@ -17,6 +17,7 @@ const {
   editMobilityAids,
   userProfile,
   showVehicle,
+  getAdmin,
 } = require('../Controller/AdminController');
 
 
@@ -30,6 +31,7 @@ Router.delete('/mobilityDelete/:toolsDelId', verifyToken, toolsDelId);
 Router.put('/editMobilityAids/:toolsId', verifyToken, editMobilityAids);
 Router.get('/userProfile', verifyToken, userProfile );
 Router.get('/showVehicle', verifyToken, showVehicle);
+Router.get('/getAdmin', verifyToken, getAdmin);
 
 
 module.exports = Router;

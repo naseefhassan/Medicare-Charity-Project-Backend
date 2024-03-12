@@ -144,15 +144,15 @@ const object = {
       res.status(400).json({message: 'mobility aids editing failed'});
     }
   },
-  userProfile: async (req, res)=>{
+  userProfile: async (req, res) => {
     try {
-      const Userprofile =await UserSchema.find();
+      const Userprofile = await UserSchema.find();
       res.status(200).json({message: 'user fecthing success', Userprofile});
     } catch (error) {
       res.status(400).json({message: 'user fetching failed'});
     }
   },
-  showVehicle: async (req, res )=>{
+  showVehicle: async (req, res) => {
     try {
       const Vehicle = await AmbulanceSchema.find();
       res.status(200).json({message: 'Ambulance fecthing success', Vehicle});
@@ -160,6 +160,15 @@ const object = {
       res.status(400).json({message: 'Ambulance fetching failed'});
     }
   },
+  getAdmin: async (req, res) => {
+    try {
+      const admin = req.user.payload.email;
+      res.status(200).json({message: 'getUser success', admin});
+    } catch {
+      res.status(400).json({message: 'failed'});
+    }
+  },
 };
+
 
 module.exports = object;
