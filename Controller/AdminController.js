@@ -163,9 +163,26 @@ const object = {
   getAdmin: async (req, res) => {
     try {
       const admin = req.user.payload.email;
-      res.status(200).json({message: 'getUser success', admin});
+      res.status(200).json({message: 'getadmin success', admin});
     } catch {
       res.status(400).json({message: 'failed'});
+    }
+  },
+  adminemail: async (req, res) => {
+    try {
+      const admin = await UserSchema.findOne({role: 'Admin'});
+      console.log(admin);
+      res.status(200).json({message: 'getadmin success', admin});
+    } catch {
+      res.status(400).json({message: 'getadmin failed'});
+    }
+  },
+  getAlluser: async (req, res)=>{
+    try {
+      const getAlluser = await UserSchema.find();
+      res.status(200).json({message: ' success', getAlluser});
+    } catch (error) {
+      res.status(400).json({message: ' failed'});
     }
   },
 };
