@@ -23,7 +23,7 @@
     "multer-s3": "^3.0.1",
     "nodemailer": "^6.9.12",
     "nodemon": "^3.0.3",
-    "twilio": "^4.21.0"
+    "twilio": "^4.23.0"
   },
   "devDependencies": {
     "eslint": "^8.56.0",
