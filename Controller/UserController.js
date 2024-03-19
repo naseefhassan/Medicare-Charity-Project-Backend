@@ -7,6 +7,9 @@ const NurseSchema = require('../Model/NurseSchema');
 const MobilitySchema = require('../Model/MobilityAids');
 const VehicleSchema = require('../Model/AmbulanceSchema');
 const jwt = require('jsonwebtoken');
+const razorpay = require('../Utility/Razorpay')
+const Payment = require('../Model/Payment')
+
 
 
 const object = {
@@ -171,5 +174,32 @@ const object = {
       res.status(400).json({message: 'failed'});
     }
   },
+
+  razorpay:razorpay,
+
+  save_payment:async(req, res)=>{
+    console.log('hiu');
+    try {
+      const { orderId, paymentId, amount, status } = req.body;
+      console.log(req.body);
+
+      // Save payment details to your database
+      // Example: You can use a MongoDB database
+      const payment = new Payment({
+        orderId,
+        paymentId,
+        amount,
+        status,
+        // Add any other payment details you want to save
+      });
+      console.log(payment,'pay');
+      payment.save()
+      res.status(200).json({ message: 'payment details saved successfully' }); 
+
+    } catch (error) {
+      console.error('Error saving payment:', error);
+      res.status(500).json({ error: 'Failed to save payment' }); 
+    }
+  }
 };
 module.exports = object;

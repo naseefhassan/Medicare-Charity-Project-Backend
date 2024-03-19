@@ -1,4 +1,4 @@
-/* eslint-disable new-cap */
+  /* eslint-disable new-cap */
 const mongoose = require('mongoose');
 
 const LoginSchema = new mongoose.Schema({

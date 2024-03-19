@@ -171,7 +171,6 @@ const object = {
   adminemail: async (req, res) => {
     try {
       const admin = await UserSchema.findOne({role: 'Admin'});
-      console.log(admin);
       res.status(200).json({message: 'getadmin success', admin});
     } catch {
       res.status(400).json({message: 'getadmin failed'});

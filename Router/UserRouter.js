@@ -1,27 +1,38 @@
 /* eslint-disable max-len */
 /* eslint-disable new-cap */
-const express = require('express');
+const express = require("express");
 const Router = express.Router();
-const {upload} = require('../Utility/Multer');
-const verifyToken = require('../MiddleWare/JWT_Token');
+const { upload } = require("../Utility/Multer");
+const verifyToken = require("../MiddleWare/JWT_Token");
+const razorpay = require("../Utility/Razorpay");
 
+const {
+  profileupdate,
+  profile,
+  volunteerProfile,
+  volunteerdata,
+  nursedata,
+  showMobility,
+  addVehicle,
+  showambulance,
+  getprofile,
+  userInfo,
+  getUser,
+  save_payment,
+} = require("../Controller/UserController");
 
-const {profileupdate, profile, volunteerProfile, volunteerdata, nursedata, showMobility, addVehicle, showambulance, getprofile, userInfo, getUser} =
-    require('../Controller/UserController');
-
-Router.get('/profile/:userId', verifyToken, profile);
-Router.post('/profileupdate', verifyToken, profileupdate);
-Router.post('/getprofile', verifyToken, getprofile);
-
-Router.post('/volunteerProfile', verifyToken, upload.single('image'), volunteerProfile);
-Router.get('/volunteerdata', verifyToken, volunteerdata);
-Router.get('/nursedata', verifyToken, nursedata);
-Router.get('/showMobility', verifyToken, showMobility);
-Router.post('/addVehicle', verifyToken, upload.single('image'), addVehicle);
-Router.get('/showambulance', verifyToken, showambulance);
-Router.get('/userInfo', userInfo);
-Router.get('/getUser',getUser)
-
-
+Router.get("/profile/:userId", verifyToken, profile);
+Router.post("/profileupdate", verifyToken, profileupdate);
+Router.post("/getprofile", verifyToken, getprofile);
+Router.post("/volunteerProfile", verifyToken, upload.single("image"), volunteerProfile);
+Router.get("/volunteerdata", verifyToken, volunteerdata);
+Router.get("/nursedata", verifyToken, nursedata);
+Router.get("/showMobility", verifyToken, showMobility);
+Router.post("/addVehicle", verifyToken, upload.single("image"), addVehicle);
+Router.get("/showambulance", verifyToken, showambulance);
+Router.get("/userInfo", userInfo);
+Router.get("/getUser", getUser);
+Router.post("/payment", razorpay);
+Router.post("/save_payment", save_payment);
 
 module.exports = Router;
