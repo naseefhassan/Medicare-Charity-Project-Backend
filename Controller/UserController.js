@@ -212,10 +212,8 @@ const object = {
   razorpay: razorpay,
 
   save_payment: async (req, res) => {
-    console.log("hiu");
     try {
       const { orderId, paymentId, amount, status } = req.body;
-      console.log(req.body);
 
       // Save payment details to your database
       // Example: You can use a MongoDB database
@@ -227,7 +225,6 @@ const object = {
         
         // Add any other payment details you want to save
       });
-      console.log(payment, "pay");
       payment.save();
       res.status(200).json({ message: "payment details saved successfully" });
     } catch (error) {
@@ -236,16 +233,25 @@ const object = {
     }
   },
   getBookingNurse: async (req, res) => {
-    console.log("ji");
     try {
       const _id = req.params.nurseId;
       const NurseDetails = await NurseSchema.findOne({ _id });
-      console.log(NurseDetails);
       res.status(200).json({ message: "success", NurseDetails });
     } catch (error) {
       console.error(error);
       res.status(400).json({ error: "Failed " });
     }
   },
+  bookingStatus:async(req,res)=>{
+    try {
+      const bookId = req.params.bookId
+      const booking = await NurseSchema.findByIdAndUpdate( bookId, {booking: true},{new: true},
+    );
+
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
 };
 module.exports = object;

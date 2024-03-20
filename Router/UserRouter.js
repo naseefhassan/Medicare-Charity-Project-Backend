@@ -19,7 +19,8 @@ const {
   userInfo,
   getUser,
   save_payment,
-  getBookingNurse
+  getBookingNurse,
+  bookingStatus,
 } = require("../Controller/UserController");
 
 Router.get("/profile/:userId", verifyToken, profile);
@@ -36,5 +37,6 @@ Router.get("/getUser", getUser);
 Router.post("/payment/:amount", razorpay);
 Router.post("/save_payment", save_payment);
 Router.get("/getBookingNurse/:nurseId",getBookingNurse)
+Router.post('/bookingStatus/:bookId', bookingStatus)
 
 module.exports = Router;
