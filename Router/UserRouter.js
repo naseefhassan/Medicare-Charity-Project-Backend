@@ -19,6 +19,7 @@ const {
   userInfo,
   getUser,
   save_payment,
+  getBookingNurse
 } = require("../Controller/UserController");
 
 Router.get("/profile/:userId", verifyToken, profile);
@@ -32,7 +33,8 @@ Router.post("/addVehicle", verifyToken, upload.single("image"), addVehicle);
 Router.get("/showambulance", verifyToken, showambulance);
 Router.get("/userInfo", userInfo);
 Router.get("/getUser", getUser);
-Router.post("/payment", razorpay);
+Router.post("/payment/:amount", razorpay);
 Router.post("/save_payment", save_payment);
+Router.get("/getBookingNurse/:nurseId",getBookingNurse)
 
 module.exports = Router;

@@ -8,8 +8,11 @@ const NurseProfileSchema = new mongoose.Schema({
   phoneNumber: {type: Number, required: true},
   Qualification: {type: String, required: true},
   Experience: {type: String, required: true},
+  rate:{type: Number, required:true },
   Image: {type: String},
   delStatus: {type: Boolean, default: false, required: true},
+  booking: {type: Boolean, default: false, required: true},
+
 
 });
 

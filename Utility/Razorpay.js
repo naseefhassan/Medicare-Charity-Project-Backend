@@ -6,9 +6,11 @@ const razorpay = new Razorpay({
 });
 
 const CreateOrder = async (req, res) => {
+  const amount = req.params.amount
+  console.log(amount);
   try {
   const options = {
-    amount: 50000, // amount in the smallest currency unit (e.g., paisa for INR)
+    amount: amount*100, // amount in the smallest currency unit (e.g., paisa for INR)
     currency: "INR",
     receipt: "order_rcptid_11",
     payment_capture: 0,

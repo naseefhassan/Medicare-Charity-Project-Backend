@@ -9,7 +9,7 @@ const AmbulanceSchema = require('../Model/AmbulanceSchema');
 const object = {
   PostNurse: async (req, res) => {
     try {
-      const {username, gender, age, phoneNumber, Qualification, Experience} =
+      const {username, gender, age, phoneNumber, Qualification, Experience, rate} =
         req.body;
       const ImgUrl = req.file.location;
 
@@ -20,6 +20,7 @@ const object = {
         phoneNumber: phoneNumber,
         Qualification: Qualification,
         Experience: Experience,
+        rate: rate,
         Image: ImgUrl,
       }).save();
 
@@ -40,7 +41,7 @@ const object = {
 
   editnurse: async (req, res) => {
     try {
-      const {username, gender, age, phoneNumber, Qualification, Experience} =
+      const {username, gender, age, phoneNumber, Qualification, Experience, rate} =
         req.body;
 
       const nurseId = req.params.nurseId;
@@ -54,6 +55,7 @@ const object = {
             phoneNumber: phoneNumber,
             Qualification: Qualification,
             Experience: Experience,
+            rate: rate,
           },
           {new: true},
       );
