@@ -160,6 +160,7 @@ const object = {
 
         await newVehicle.save();
 
+
         res.status(200).json({ message: "Ambulance added successfully" });
       } else {
         res.status(400).json({ message: "This vehicle is already exists" });
@@ -252,6 +253,17 @@ const object = {
     } catch (error) {
       console.error(error);
 
+    }
+  },
+  getMobilityBooking:async(req,res)=>{
+    try {
+      const _id = req.params.MobilityId;
+      const MobilityAids = await MobilitySchema.findOne({ _id });
+      console.log(MobilityAids);
+      res.status(200).json({ message: "success", MobilityAids });
+    } catch (error) {
+      console.error(error);
+      res.status(400).json({ error: "Failed " });
     }
   }
 };

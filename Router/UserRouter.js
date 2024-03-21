@@ -21,6 +21,7 @@ const {
   save_payment,
   getBookingNurse,
   bookingStatus,
+  getMobilityBooking
 } = require("../Controller/UserController");
 
 Router.get("/profile/:userId", verifyToken, profile);
@@ -43,5 +44,6 @@ Router.post("/payment/:amount", razorpay);
 Router.post("/save_payment", save_payment);
 Router.get("/getBookingNurse/:nurseId", getBookingNurse);
 Router.post("/bookingStatus/:bookId", bookingStatus);
+Router.get("/getMobilityBooking/:MobilityId", getMobilityBooking)
 
 module.exports = Router;
