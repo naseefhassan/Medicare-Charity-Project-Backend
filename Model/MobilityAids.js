@@ -9,6 +9,8 @@ const MobilityAids = new mongoose.Schema({
   rate: {type: Number, required: true},
   description: {type: String, required: true},
   image: {type: String, required: true},
+  booking: {type: Boolean, default: false, required: true},
+
 });
 
 const mobilityAids = new mongoose.model('MobilityAids', MobilityAids);

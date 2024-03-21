@@ -213,12 +213,9 @@ const object = {
   razorpay: razorpay,
 
   save_payment: async (req, res) => {
-    console.log('hi');
     try {
       const { orderId, paymentId, amount, status } = req.body;
-      console.log(req.body);
       // Save payment details to your database
-      // Example: You can use a MongoDB database
       const payment =await new PaymentSchema({
         orderId,
         paymentId,
@@ -264,6 +261,19 @@ const object = {
     } catch (error) {
       console.error(error);
       res.status(400).json({ error: "Failed " });
+    }
+  },
+  MobilitybookingStatus:async(req,res)=>{
+    console.log('ethi');
+    try {
+      const bookId = req.params.bookId
+      console.log(bookId);
+      const booking = await MobilitySchema.findByIdAndUpdate( bookId, {booking: true},{new: true},
+    );
+
+    } catch (error) {
+      console.error(error);
+
     }
   }
 };

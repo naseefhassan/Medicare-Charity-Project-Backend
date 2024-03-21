@@ -21,7 +21,8 @@ const {
   save_payment,
   getBookingNurse,
   bookingStatus,
-  getMobilityBooking
+  getMobilityBooking,
+  MobilitybookingStatus,
 } = require("../Controller/UserController");
 
 Router.get("/profile/:userId", verifyToken, profile);
@@ -45,5 +46,6 @@ Router.post("/save_payment", save_payment);
 Router.get("/getBookingNurse/:nurseId", getBookingNurse);
 Router.post("/bookingStatus/:bookId", bookingStatus);
 Router.get("/getMobilityBooking/:MobilityId", getMobilityBooking)
+Router.post("/MobilitybookingStatus/:bookId", MobilitybookingStatus)
 
 module.exports = Router;
