@@ -6,20 +6,22 @@ const razorpay = new Razorpay({
 });
 
 const CreateOrder = async (req, res) => {
-  const amount = req.params.amount
-  console.log(amount);
+  const amount = req.params.amount;
   try {
-  const options = {
-    amount: amount*100, // amount in the smallest currency unit (e.g., paisa for INR)
-    currency: "INR",
-    receipt: "order_rcptid_11",
-    payment_capture: 0,
-  };
+    const options = {
+      amount: amount, // amount in the smallest currency unit (e.g., paisa for INR)
+      currency: "INR",
+      receipt: "order_rcptid_11",
+      payment_capture: 0,
+    };
 
     const response = await razorpay.orders.create(options);
-    res.status(200).json(response);
+
+    res.status(200).json({ message: "cresteorder", response });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ message: "createOrder failed", error: error.message });
   }
 };
 

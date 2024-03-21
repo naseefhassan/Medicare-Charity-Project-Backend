@@ -8,7 +8,7 @@ const MobilitySchema = require("../Model/MobilityAids");
 const VehicleSchema = require("../Model/AmbulanceSchema");
 const jwt = require("jsonwebtoken");
 const razorpay = require("../Utility/Razorpay");
-const Payment = require("../Model/Payment");
+const PaymentSchema = require("../Model/Payment");
 
 const object = {
   profile: async (req, res) => {
@@ -212,12 +212,13 @@ const object = {
   razorpay: razorpay,
 
   save_payment: async (req, res) => {
+    console.log('hi');
     try {
       const { orderId, paymentId, amount, status } = req.body;
-
+      console.log(req.body);
       // Save payment details to your database
       // Example: You can use a MongoDB database
-      const payment = new Payment({
+      const payment =await new PaymentSchema({
         orderId,
         paymentId,
         amount,
@@ -229,7 +230,7 @@ const object = {
       res.status(200).json({ message: "payment details saved successfully" });
     } catch (error) {
       console.error("Error saving payment:", error);
-      res.status(500).json({ error: "Failed to save payment" });
+      res.status(500).json({ message:'save Payment failed',error: "Failed to save payment" });
     }
   },
   getBookingNurse: async (req, res) => {
