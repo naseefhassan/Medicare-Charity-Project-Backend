@@ -12,7 +12,7 @@ function sentOtp(phoneNumber) {
         .then((verification) => console.log(verification.status))
         .catch((error)=> console.log('error ', error));
   } catch (error) {
-    console.log('Error from twilio', error);
+    console.error('Error from twilio', error);
   }
 }
 

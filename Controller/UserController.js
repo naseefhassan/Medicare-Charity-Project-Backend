@@ -9,7 +9,7 @@ const VehicleSchema = require("../Model/AmbulanceSchema");
 const jwt = require("jsonwebtoken");
 const razorpay = require("../Utility/Razorpay");
 const PaymentSchema = require("../Model/Payment");
-
+const Razorpay = require("razorpay");
 const object = {
   profile: async (req, res) => {
     try {
@@ -212,6 +212,27 @@ const object = {
 
   razorpay: razorpay,
 
+  donate:async(req,res)=>{
+    try {
+      const razorpay = new Razorpay({
+        key_id: process.env.RazorPay_Key_Id,
+        key_secret: process.env.RazorPay_Secert_Key,
+      });
+      const {amount}=req.body
+      const options = {
+        amount: amount, // amount in the smallest currency unit (e.g., paisa for INR)
+        currency: "INR",
+        receipt: "order_rcptid_11",
+        payment_capture: 0,
+      };
+  
+      const response = await razorpay.orders.create(options);
+  
+      res.status(200).json({ message: "cresteorder", response });
+    } catch (error) {
+      console.error(error);
+    }
+  },
   save_payment: async (req, res) => {
     try {
       const { orderId, paymentId, amount, status } = req.body;
@@ -256,7 +277,6 @@ const object = {
     try {
       const _id = req.params.MobilityId;
       const MobilityAids = await MobilitySchema.findOne({ _id });
-      console.log(MobilityAids);
       res.status(200).json({ message: "success", MobilityAids });
     } catch (error) {
       console.error(error);
@@ -264,10 +284,8 @@ const object = {
     }
   },
   MobilitybookingStatus:async(req,res)=>{
-    console.log('ethi');
     try {
       const bookId = req.params.bookId
-      console.log(bookId);
       const booking = await MobilitySchema.findByIdAndUpdate( bookId, {booking: true},{new: true},
     );
 
