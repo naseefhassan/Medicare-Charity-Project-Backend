@@ -10,10 +10,7 @@ const jwt = require("jsonwebtoken");
 const razorpay = require("../Utility/Razorpay");
 const PaymentSchema = require("../Model/Payment");
 const Razorpay = require("razorpay");
-<<<<<<< HEAD
 const { userProfile } = require("./AdminController");
-=======
->>>>>>> a17f81dce5a04ab39ccf813d04d96c32c422bca0
 const object = {
   profile: async (req, res) => {
     try {
@@ -216,36 +213,22 @@ const object = {
 
   razorpay: razorpay,
 
-<<<<<<< HEAD
   donate: async (req, res) => {
-=======
-  donate:async(req,res)=>{
->>>>>>> a17f81dce5a04ab39ccf813d04d96c32c422bca0
     try {
       const razorpay = new Razorpay({
         key_id: process.env.RazorPay_Key_Id,
         key_secret: process.env.RazorPay_Secert_Key,
       });
-<<<<<<< HEAD
       const { amount } = req.body;
-=======
-      const {amount}=req.body
->>>>>>> a17f81dce5a04ab39ccf813d04d96c32c422bca0
       const options = {
         amount: amount, // amount in the smallest currency unit (e.g., paisa for INR)
         currency: "INR",
         receipt: "order_rcptid_11",
         payment_capture: 0,
       };
-<<<<<<< HEAD
 
       const response = await razorpay.orders.create(options);
 
-=======
-  
-      const response = await razorpay.orders.create(options);
-  
->>>>>>> a17f81dce5a04ab39ccf813d04d96c32c422bca0
       res.status(200).json({ message: "cresteorder", response });
     } catch (error) {
       console.error(error);
@@ -305,7 +288,6 @@ const object = {
       res.status(400).json({ error: "Failed " });
     }
   },
-<<<<<<< HEAD
   MobilitybookingStatus: async (req, res) => {
     try {
       const bookId = req.params.bookId;
@@ -314,14 +296,6 @@ const object = {
         { booking: true },
         { new: true }
       );
-=======
-  MobilitybookingStatus:async(req,res)=>{
-    try {
-      const bookId = req.params.bookId
-      const booking = await MobilitySchema.findByIdAndUpdate( bookId, {booking: true},{new: true},
-    );
-
->>>>>>> a17f81dce5a04ab39ccf813d04d96c32c422bca0
     } catch (error) {
       console.error(error);
     }
