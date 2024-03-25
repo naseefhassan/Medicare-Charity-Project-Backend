@@ -18,6 +18,7 @@ const {
   getprofile,
   userInfo,
   getUser,
+  donate,
   save_payment,
   getBookingNurse,
   bookingStatus,
@@ -42,10 +43,11 @@ Router.get("/showambulance", verifyToken, showambulance);
 Router.get("/userInfo", userInfo);
 Router.get("/getUser", getUser);
 Router.post("/payment/:amount", razorpay);
+Router.post("/donate", donate);
 Router.post("/save_payment", save_payment);
 Router.get("/getBookingNurse/:nurseId", getBookingNurse);
 Router.post("/bookingStatus/:bookId", bookingStatus);
-Router.get("/getMobilityBooking/:MobilityId", getMobilityBooking)
-Router.post("/MobilitybookingStatus/:bookId", MobilitybookingStatus)
+Router.get("/getMobilityBooking/:MobilityId", getMobilityBooking);
+Router.post("/MobilitybookingStatus/:bookId", MobilitybookingStatus);
 
 module.exports = Router;

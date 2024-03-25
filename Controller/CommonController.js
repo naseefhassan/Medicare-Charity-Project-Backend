@@ -6,7 +6,7 @@ const twilio = require('../Utility/Twilio');
 const twilioCheck = require('../Utility/TwiloCheck');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+require('nodemailer');
 const {sendMail} = require('../Utility/Nodemailer');
 
 

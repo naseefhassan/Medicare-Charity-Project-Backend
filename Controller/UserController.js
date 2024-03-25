@@ -9,16 +9,18 @@ const VehicleSchema = require("../Model/AmbulanceSchema");
 const jwt = require("jsonwebtoken");
 const razorpay = require("../Utility/Razorpay");
 const PaymentSchema = require("../Model/Payment");
-
+const Razorpay = require("razorpay");
+const { userProfile } = require("./AdminController");
 const object = {
   profile: async (req, res) => {
     try {
       const _id = req.params.userId;
       const userData = await userDetails.findOne({ _id });
       const profileData = await Userprofile.find();
+
       res
         .status(200)
-        .json({ message: " profile success", userData, profileData });
+        .json({ message: " profile success", userData ,profileData});
     } catch (error) {
       console.error("error in profile", error);
       res.status(500).json({ message: "Internal Server Error" });
@@ -160,7 +162,6 @@ const object = {
 
         await newVehicle.save();
 
-
         res.status(200).json({ message: "Ambulance added successfully" });
       } else {
         res.status(400).json({ message: "This vehicle is already exists" });
@@ -212,23 +213,47 @@ const object = {
 
   razorpay: razorpay,
 
+  donate: async (req, res) => {
+    try {
+      const razorpay = new Razorpay({
+        key_id: process.env.RazorPay_Key_Id,
+        key_secret: process.env.RazorPay_Secert_Key,
+      });
+      const { amount } = req.body;
+      const options = {
+        amount: amount, // amount in the smallest currency unit (e.g., paisa for INR)
+        currency: "INR",
+        receipt: "order_rcptid_11",
+        payment_capture: 0,
+      };
+
+      const response = await razorpay.orders.create(options);
+
+      res.status(200).json({ message: "cresteorder", response });
+    } catch (error) {
+      console.error(error);
+    }
+  },
   save_payment: async (req, res) => {
     try {
       const { orderId, paymentId, amount, status } = req.body;
       // Save payment details to your database
-      const payment =await new PaymentSchema({
+      const payment = await new PaymentSchema({
         orderId,
         paymentId,
         amount,
         status,
-        
+
         // Add any other payment details you want to save
       });
       payment.save();
       res.status(200).json({ message: "payment details saved successfully" });
     } catch (error) {
       console.error("Error saving payment:", error);
-      res.status(500).json({ message:'save Payment failed',error: "Failed to save payment" });
+      res.status(500).json({
+        message: "save Payment failed",
+        error: "Failed to save payment",
+      });
     }
   },
   getBookingNurse: async (req, res) => {
@@ -241,40 +266,39 @@ const object = {
       res.status(400).json({ error: "Failed " });
     }
   },
-  bookingStatus:async(req,res)=>{
+  bookingStatus: async (req, res) => {
     try {
-      const bookId = req.params.bookId
-      const booking = await NurseSchema.findByIdAndUpdate( bookId, {booking: true},{new: true},
-    );
-
+      const bookId = req.params.bookId;
+      const booking = await NurseSchema.findByIdAndUpdate(
+        bookId,
+        { booking: true },
+        { new: true }
+      );
     } catch (error) {
       console.error(error);
-
     }
   },
-  getMobilityBooking:async(req,res)=>{
+  getMobilityBooking: async (req, res) => {
     try {
       const _id = req.params.MobilityId;
       const MobilityAids = await MobilitySchema.findOne({ _id });
-      console.log(MobilityAids);
       res.status(200).json({ message: "success", MobilityAids });
     } catch (error) {
       console.error(error);
       res.status(400).json({ error: "Failed " });
     }
   },
-  MobilitybookingStatus:async(req,res)=>{
-    console.log('ethi');
+  MobilitybookingStatus: async (req, res) => {
     try {
-      const bookId = req.params.bookId
-      console.log(bookId);
-      const booking = await MobilitySchema.findByIdAndUpdate( bookId, {booking: true},{new: true},
-    );
-
+      const bookId = req.params.bookId;
+      const booking = await MobilitySchema.findByIdAndUpdate(
+        bookId,
+        { booking: true },
+        { new: true }
+      );
     } catch (error) {
       console.error(error);
-
     }
-  }
+  },
 };
 module.exports = object;
