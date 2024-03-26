@@ -34,8 +34,8 @@ Router.put('/editMobilityAids/:toolsId', verifyToken, editMobilityAids);
 Router.get('/userProfile', verifyToken, userProfile );
 Router.get('/showVehicle', verifyToken, showVehicle);
 Router.get('/getAdmin', verifyToken, getAdmin);
-Router.get('/adminemail', verifyToken, adminemail)
-Router.get('/getAlluser', verifyToken, getAlluser)
+Router.get('/adminemail', verifyToken, adminemail);
+Router.get('/getAlluser', verifyToken, getAlluser);
 
 
 module.exports = Router;
