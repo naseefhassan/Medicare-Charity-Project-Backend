@@ -1,5 +1,4 @@
-/* eslint-disable new-cap */
-require('mongoose');
+const mongoose = require('mongoose');
 
 const Payment = new mongoose.Schema({
   orderId: {type: String, required: true},
