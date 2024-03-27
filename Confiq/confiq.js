@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-
 const connect = mongoose
     .connect(process.env.MONGO_URL)
     .then(() => {
       console.log('Database connected');
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       console.log('Database not connected');
     });
 
