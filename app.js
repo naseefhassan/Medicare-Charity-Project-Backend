@@ -16,9 +16,9 @@ const CommonRouter = require('./Router/CommonRouter');
 const AdminRouter =require('./Router/AdminRouter');
 const userRouter =require('./Router/UserRouter');
 
-app.use('/admin', AdminRouter);
-app.use('/', CommonRouter);
-app.use('/user', userRouter);
+app.use('/api/admin', AdminRouter);
+app.use('/api/', CommonRouter);
+app.use('/api/user', userRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
